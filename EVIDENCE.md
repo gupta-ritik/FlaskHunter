@@ -69,6 +69,20 @@ _To do: nightly scheduled workflow running FlakeHunter on its own repo and the d
 - [x] Approval mode for file edits and commands
 - [x] /init for AGENTS.md
 - [x] AGENTS.md as standing instructions
-- [ ] @codex review on pull requests
+- [x] @codex review on pull requests
 - [ ] Skills (skills/*/SKILL.md)
 - [ ] Scheduled tasks / GitHub Actions automation
+
+
+
+
+
+**Date:** 2026-11-24
+**PR:** #2 docs: add AGENTS.md with agent rules and evidence
+**What I did:** Requested @codex review via the Codex GitHub integration (manual trigger).
+**Result:** "Didn't find any major issues" 👍 on commit 88b1e30.
+**My action:** No changes needed; merged.
+**Lesson:** First attempt accidentally closed the PR ("Close with comment") and
+showed main and branch identical because files weren't committed — learned to
+check `git status` before pushing.
+**Evidence:** screenshots/04-codex-review.png
