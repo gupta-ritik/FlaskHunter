@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flakehunter"
+version = "0.1.0"
+description = "Investigate flaky pytest tests from GitHub Actions history."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = ["typer", "rich", "pydantic"]
+
+[project.scripts]
+flakehunter = "flakehunter.cli:app"
+
+[dependency-groups]
+dev = ["pytest", "pytest-randomly", "ruff", "mypy"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
