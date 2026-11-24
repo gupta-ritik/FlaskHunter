@@ -1,2 +1,3 @@
 | 2026-11-24 | Plan | PLAN/issues/ADRs draft | GPT-6.2 Sol | High | Sets architecture and scope | Rigorous but over-scoped |
 | 2026-11-24 | Plan | Apply my review edits | GPT-6.2 Sol | Medium | Edits to an existing plan, no new design | <result> |
+| 2026-11-24 | Plan | Create GitHub issues, labels, milestones (gh CLI) | GPT-6.2 Sol | Medium | Multi-step CLI work across many issues; must avoid duplicates and wrong labels | 12 issues created (#4–#15), no duplicates; issues.md linked |

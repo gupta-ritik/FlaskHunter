@@ -22,8 +22,25 @@ experiment, which became a design rule for FlakeHunter.
 **Evidence:** screenshots/01-understand-readonly.png
 
 ## 2. Plan
-_To do: docs/PLAN.md (effort High), docs/architecture.svg, docs/issues.md.
-Record what I changed in Codex's plan and why._
+**Date:** 2026-11-24
+**What I did:** Codex drafted docs/PLAN.md, docs/issues.md and docs/decisions.md
+(effort High).
+**My review:** The plan was rigorous but too heavy for a solo 4-week build.
+**My edits:** Split v1 vs v1.1 scope; added a week-1 vertical slice; added the
+Windows Docker/WSL2 risk; added a real-world flaky-test reproduction target;
+added verified problem statistics; changed the single model to a 2-model
+comparison; added a TL;DR for judges.
+**PR:** #16 docs: add plan, issues and ADRs with review edits (merged)
+**Evidence:** docs/PLAN.md, docs/issues.md, docs/decisions.md
+
+**Project tracking (2026-11-24):** Used Codex with the GitHub CLI (effort Medium)
+to turn docs/issues.md into 13 GitHub issues (W1-1 … W4-3, #3–#15) with
+lifecycle and effort labels, a v1 label, and four weekly milestones. Codex
+listed existing issues first to avoid duplicates, and I approved each gh
+command. docs/issues.md now links each task to its real issue number.
+From now on every implementation PR references its issue with "Fixes #N".
+**Evidence:** https://github.com/gupta-ritik/FlaskHunter/issues ·
+screenshots/05-issues-board.png
 
 ## 3. Build
 **Date:** 2026-11-24
@@ -43,7 +60,15 @@ virtual-env and cache folders were git-ignored.
 _To do: flaky demo repo + benchmark (benchmark/measure_flakiness.py results)._
 
 ## 5. Review
-_To do: @codex review on each pull request — record what it found and what I changed._
+**Date:** 2026-11-24
+**PR:** #2 docs: add AGENTS.md with agent rules and evidence
+**What I did:** Requested @codex review via the Codex GitHub integration (manual trigger).
+**Result:** "Didn't find any major issues" 👍 on commit 88b1e30.
+**My action:** No changes needed; merged.
+**Lesson:** First attempt accidentally closed the PR ("Close with comment") and
+showed main and branch identical because files weren't committed — learned to
+check `git status` before pushing.
+**Evidence:** screenshots/04-codex-review.png
 
 ## 6. Document
 **Date:** 2026-11-24
@@ -54,7 +79,8 @@ unit tests, no unexplained dependencies, smallest change, run all checks before
 finishing), conventional-commit prefixes, a Windows venv activation note, and
 corrected the description of EVIDENCE.md. I left out a benchmark rule because
 benchmark/ does not exist yet ("only what is true today").
-**Evidence:** AGENTS.md, PR link: <add after opening PR>
+**PR:** #2 (merged after @codex review)
+**Evidence:** AGENTS.md
 
 ## 7. Ship
 _To do: PyPI release, GitHub Action, setup instructions in README._
@@ -70,30 +96,6 @@ _To do: nightly scheduled workflow running FlakeHunter on its own repo and the d
 - [x] /init for AGENTS.md
 - [x] AGENTS.md as standing instructions
 - [x] @codex review on pull requests
+- [x] Codex + GitHub CLI for project tracking (issues, labels, milestones)
 - [ ] Skills (skills/*/SKILL.md)
 - [ ] Scheduled tasks / GitHub Actions automation
-
-
-
-
-
-**Date:** 2026-11-24
-**PR:** #2 docs: add AGENTS.md with agent rules and evidence
-**What I did:** Requested @codex review via the Codex GitHub integration (manual trigger).
-**Result:** "Didn't find any major issues" 👍 on commit 88b1e30.
-**My action:** No changes needed; merged.
-**Lesson:** First attempt accidentally closed the PR ("Close with comment") and
-showed main and branch identical because files weren't committed — learned to
-check `git status` before pushing.
-**Evidence:** screenshots/04-codex-review.png
-
-
-
-**Date:** 2026-11-24
-**What I did:** Codex drafted PLAN.md, issues.md and decisions.md (effort High).
-**My review:** The plan was rigorous but too heavy for a solo 4-week build.
-**My edits:** Split v1 vs v1.1 scope; added a week-1 vertical slice; added the
-Windows Docker/WSL2 risk; added real-world flaky-test reproduction target;
-added verified problem statistics; changed single model to a 2-model comparison;
-added a TL;DR for judges.
-**Evidence:** docs/PLAN.md, docs/issues.md, docs/decisions.md
