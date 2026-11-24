@@ -6,7 +6,7 @@
 
 ## Week 1 · Rules-only vertical slice
 
-### W1-1 · Validate the problem and define judge evidence
+### W1-1 · Validate the problem and define judge evidence · [#3](https://github.com/gupta-ritik/FlaskHunter/issues/3)
 
 **Lifecycle** `lifecycle:understand` · **Codex effort** Light
 
@@ -17,7 +17,7 @@
 - [ ] Add real Codex task records to `MODEL_LOG.md` with settings, rationale, checks, and evidence links.
 - [ ] On Day 1, confirm Docker Desktop uses the WSL 2 backend with Linux containers. Record `wsl --version`, `wsl --list --verbose`, `docker info`, and the result of `docker run --rm --network=none alpine ip route` with a cached image. Expect no default route. If blocked, record the cause and use a Linux runner for sandbox work. [Docker Desktop for Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
 
-### W1-2 · Ingest comparable GitHub Actions test results
+### W1-2 · Ingest comparable GitHub Actions test results · [#4](https://github.com/gupta-ritik/FlaskHunter/issues/4)
 
 **Lifecycle** `lifecycle:build` · **Codex effort** Medium
 
@@ -27,7 +27,7 @@
 - [ ] A captured pass/fail pair on the same SHA and environment produces one candidate after deduplication.
 - [ ] Fixture tests cover duplicate uploads, missing artifacts, incompatible environments, and stable failures. Unit tests use local fixtures.
 
-### W1-3 · Report one benchmark flake end to end
+### W1-3 · Report one benchmark flake end to end · [#5](https://github.com/gupta-ritik/FlaskHunter/issues/5)
 
 **Lifecycle** `lifecycle:build` · **Codex effort** Medium
 
@@ -38,7 +38,7 @@
 
 ## Week 2 · Diagnosis
 
-### W2-1 · Run controlled probes in the Docker sandbox
+### W2-1 · Run controlled probes in the Docker sandbox · [#6](https://github.com/gupta-ritik/FlaskHunter/issues/6)
 
 **Lifecycle** `lifecycle:build` · **Codex effort** High
 
@@ -49,7 +49,7 @@
 - [ ] Run the probes with Docker `--network=none`. Demonstrate that egress and host credentials are unavailable and the runner-owned loopback stub works only for network experiments.
 - [ ] Leave concurrency as stretch. Log the sandbox invariants and test results.
 
-### W2-2 · Implement bounded LangGraph diagnosis and a Codex replay skill
+### W2-2 · Implement bounded LangGraph diagnosis and a Codex replay skill · [#7](https://github.com/gupta-ritik/FlaskHunter/issues/7)
 
 **Lifecycle** `lifecycle:build` · **Codex effort** Medium
 
@@ -59,7 +59,7 @@
 - [ ] A report links the observed signature, paired outcomes, chosen cause or unknown, elapsed time, and replay commands.
 - [ ] Store `.agents/skills/flake-investigation/SKILL.md` at the repository root and link a Codex invocation and its replay output from `EVIDENCE.md`. **VERIFIED.** Codex discovers repo-local skills under the root `.agents/skills/` directory. [Codex skill discovery](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills)
 
-### W2-3 · Add the Ollama model adapter and measure the laptop profile
+### W2-3 · Add the Ollama model adapter and measure the laptop profile · [#8](https://github.com/gupta-ritik/FlaskHunter/issues/8)
 
 **Lifecycle** `lifecycle:build` · **Codex effort** Medium
 
@@ -69,7 +69,7 @@
 - [ ] Screen two candidate coder models on the RTX 5050 and record their identifiers, configurations, context cap, and measured peak VRAM. Both must fit within 8 GB VRAM for the Week 3 comparison.
 - [ ] Programmatic rules own classification and verification regardless of model output.
 
-### W2-4 · Complete the 20-case benchmark and separate scorer
+### W2-4 · Complete the 20-case benchmark and separate scorer · [#9](https://github.com/gupta-ritik/FlaskHunter/issues/9)
 
 **Lifecycle** `lifecycle:test` · **Codex effort** Medium
 
@@ -82,7 +82,7 @@
 
 ## Week 3 · Verified PRs and demo
 
-### W3-1 · Gate candidate patches on base reproduction and 50 stress runs
+### W3-1 · Gate candidate patches on base reproduction and 50 stress runs · [#10](https://github.com/gupta-ritik/FlaskHunter/issues/10)
 
 **Lifecycle** `lifecycle:test` · **Codex effort** High
 
@@ -92,7 +92,7 @@
 - [ ] Require 50 clean candidate trials in fresh pytest processes (35 trigger and 15 control) and a passing relevant suite.
 - [ ] Tests reject failed, missing, skipped, xfailed, timed-out, or incomplete trials and cases where the target did not execute.
 
-### W3-2 · Open evidence-backed fix or quarantine draft PRs
+### W3-2 · Open evidence-backed fix or quarantine draft PRs · [#11](https://github.com/gupta-ritik/FlaskHunter/issues/11)
 
 **Lifecycle** `lifecycle:review` · **Codex effort** High
 
@@ -103,7 +103,7 @@
 - [ ] Dry-run reports match draft PR evidence. Permission failure stops publication, retries deduplicate, and the PR step has no merge or force-push path.
 - [ ] Request `@codex review` on each PR and link or record the review outcome. Keep the required test checks active.
 
-### W3-3 · Rehearse and document the end-to-end demo
+### W3-3 · Rehearse and document the end-to-end demo · [#12](https://github.com/gupta-ritik/FlaskHunter/issues/12)
 
 **Lifecycle** `lifecycle:document` · **Codex effort** Medium
 
@@ -116,7 +116,7 @@
 
 ## Week 4 · Automation, release, evidence
 
-### W4-1 · Automate benchmark scoring on PRs and nightly
+### W4-1 · Automate benchmark scoring on PRs and nightly · [#13](https://github.com/gupta-ritik/FlaskHunter/issues/13)
 
 **Lifecycle** `lifecycle:automate` · **Codex effort** Medium
 
@@ -126,7 +126,7 @@
 - [ ] Link a real scheduled run and a comparison with an earlier run from `EVIDENCE.md`.
 - [ ] Keep write credentials out of PR and benchmark jobs. Record a repeat execution of the Codex replay skill.
 
-### W4-2 · Release the Python package and GitHub Action
+### W4-2 · Release the Python package and GitHub Action · [#14](https://github.com/gupta-ritik/FlaskHunter/issues/14)
 
 **Lifecycle** `lifecycle:ship` · **Codex effort** Medium
 
@@ -136,7 +136,7 @@
 - [ ] A clean Python 3.12 environment installs the published package and runs `flakehunter --version` and a local dry-run smoke test.
 - [ ] Link the release, PyPI artifact, and smoke results. Record any access blocker and its impact on delivery.
 
-### W4-3 · Audit the judge evidence pack
+### W4-3 · Audit the judge evidence pack · [#15](https://github.com/gupta-ritik/FlaskHunter/issues/15)
 
 **Lifecycle** `lifecycle:document` · **Codex effort** Light
 
