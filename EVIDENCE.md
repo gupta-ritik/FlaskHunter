@@ -5,6 +5,7 @@ re-running them in isolation, and opens a verified fix PR or a quarantine PR.
 Challenge: Build with Codex — One-Month Challenge.
 Codex surface used: Codex extension in VS Code (Windows), "Ask for approval" mode.
 Model log: see MODEL_LOG.md for model and reasoning effort per task.
+Project tracking: https://github.com/gupta-ritik/FlaskHunter/issues (13 issues, #3–#15)
 
 ---
 
@@ -43,6 +44,8 @@ From now on every implementation PR references its issue with "Fixes #N".
 screenshots/05-issues-board.png
 
 ## 3. Build
+
+### Project skeleton
 **Date:** 2026-11-24
 **What I did:** Asked Codex to create the project skeleton: src layout, Typer
 CLI with --version, pyproject.toml, one test, CI workflow, .gitignore, README.
@@ -54,9 +57,42 @@ virtual-env and cache folders were git-ignored.
 **Commit:** ba14af2 — chore: project skeleton with CI
 **Evidence:** screenshots/02-skeleton-checks.png
 
+### W1-2 · Ingest CI history and detect flaky candidates
+**Date:** 2026-11-24 · **Issue:** #4 · **PR:** #<PR number> · **Effort:** Medium
+**What I did:** Codex implemented local pytest JUnit ingestion,
+comparable-attempt grouping (same SHA + same environment), deduplication of
+repeated uploads, and the `flakehunter history` CLI. Work was test-first.
+**Test-first evidence:** The first test run stopped at collection because the
+history module did not exist yet. After implementation, ruff and mypy passed
+and pytest reported 8 passing tests.
+**Replay:** `flakehunter history tests/fixtures/history` produced one candidate
+(one pass, one fail) and warned about the folder with missing metadata.
+A separate offline replay used two real pytest-generated reports (one passing,
+one failing) with matching SHA and environment. After copying the failed report
+into the same attempt folder, the CLI still reported one pass and one fail for
+`test_probe.py::test_ci_probe` (deduplication works) and preserved its
+`AssertionError` signature.
+**My check:** Ran `flakehunter history tests/fixtures/history` myself: exactly
+1 candidate (`tests/test_sample.py::TestCases::test_flaky[case.a]`, 1 pass /
+1 fail, `AssertionError: value differs`). Confirmed the pass/fail pair on
+different environments and the stable failure were NOT flagged.
+**Evidence:** screenshots/06-w1-2-candidates.png ·
+[acceptance criteria](docs/issues.md#w1-2--ingest-comparable-github-actions-test-results--4) ·
+[history format](docs/history-format.md) · [fixture tests](tests/test_history.py)
+
 ## 4. Test
 **CI:** First GitHub Actions run (CI #1) passed in 19s on main.
 **Evidence:** screenshots/03-ci-green.png
+**Test-first practice:** W1-2 tests were written and shown failing before the
+implementation (see Build › W1-2).
+**Windows sandbox issue (2026-11-24):** A Codex run left three temp folders with
+mangled names (`Usersritik.guptaDesktopFlaskHunter.venvhistory-pytest-*`) in the
+repo root, owned by the sandbox user. pytest collection failed with
+"Access is denied" and my user could not delete them, even with `takeown`.
+Codex removed them. Prevented recurrence by restricting pytest to
+`testpaths = ["tests"]`, git-ignoring `/Users*/`, and adding an AGENTS.md rule
+(use `tmp_path`, never absolute Windows paths for `--basetemp`).
+Result: ruff clean, mypy clean, 8 passed.
 _To do: flaky demo repo + benchmark (benchmark/measure_flakiness.py results)._
 
 ## 5. Review
@@ -70,6 +106,13 @@ showed main and branch identical because files weren't committed — learned to
 check `git status` before pushing.
 **Evidence:** screenshots/04-codex-review.png
 
+| PR | Change | Codex review result | My action |
+|---|---|---|---|
+| #2 | AGENTS.md + evidence | No major issues 👍 | Merged |
+| #16 | Plan, issues, ADRs | <result> | Merged |
+| #<n> | Link issues | <result> | Merged |
+| #<n> | W1-2 history ingestion (Fixes #4) | <result> | <action> |
+
 ## 6. Document
 **Date:** 2026-11-24
 **What I did:** Generated AGENTS.md with /init (effort Light).
@@ -80,7 +123,7 @@ finishing), conventional-commit prefixes, a Windows venv activation note, and
 corrected the description of EVIDENCE.md. I left out a benchmark rule because
 benchmark/ does not exist yet ("only what is true today").
 **PR:** #2 (merged after @codex review)
-**Evidence:** AGENTS.md
+**Evidence:** AGENTS.md, docs/history-format.md (W1-2 input format)
 
 ## 7. Ship
 _To do: PyPI release, GitHub Action, setup instructions in README._
@@ -97,5 +140,6 @@ _To do: nightly scheduled workflow running FlakeHunter on its own repo and the d
 - [x] AGENTS.md as standing instructions
 - [x] @codex review on pull requests
 - [x] Codex + GitHub CLI for project tracking (issues, labels, milestones)
-- [ ] Skills (skills/*/SKILL.md)
+- [x] Test-first implementation (failing tests shown before code)
+- [ ] Skills (.agents/skills/*/SKILL.md)
 - [ ] Scheduled tasks / GitHub Actions automation

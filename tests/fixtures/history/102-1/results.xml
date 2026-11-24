@@ -1,0 +1,5 @@
+<testsuite name="pytest">
+  <testcase classname="tests.test_sample" name="test_env_sensitive">
+    <failure type="ValueError" message="unknown environment" />
+  </testcase>
+</testsuite>

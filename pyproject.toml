@@ -24,3 +24,6 @@ target-version = "py312"
 
 [tool.mypy]
 python_version = "3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
