@@ -5,7 +5,7 @@ import re
 import warnings
 from collections import defaultdict
 from pathlib import Path
-from typing import Annotated, Literal
+from typing import Annotated, Literal, NamedTuple
 from xml.etree import ElementTree
 
 from pydantic import (
@@ -135,6 +135,23 @@ def _result(testcase: ElementTree.Element) -> tuple[Outcome, str | None]:
     return "pass", None
 
 
+class JUnitObservation(NamedTuple):
+    node_id: str
+    outcome: Outcome
+    signature: str | None
+
+
+def read_junit(path: Path) -> list[JUnitObservation]:
+    """Read observations in the order recorded in a pytest JUnit report."""
+    observations = []
+    for testcase in ElementTree.parse(path).getroot().iter("testcase"):
+        node_id = _node_id(testcase)
+        if node_id is not None:
+            outcome, signature = _result(testcase)
+            observations.append(JUnitObservation(node_id, outcome, signature))
+    return observations
+
+
 def load_history(path: Path | str) -> list[HistoryRow]:
     """Read attempt folders and emit HistoryWarning for unavailable input."""
     path = Path(path)
@@ -186,7 +203,7 @@ def load_history(path: Path | str) -> list[HistoryRow]:
         env_key = metadata.env.model_dump_json()
         for report in reports:
             try:
-                root = ElementTree.parse(report).getroot()
+                observations = read_junit(report)
             except (OSError, ElementTree.ParseError, LookupError, ValueError) as exc:
                 warnings.warn(
                     f"{report}: cannot read JUnit XML ({exc})",
@@ -194,23 +211,20 @@ def load_history(path: Path | str) -> list[HistoryRow]:
                     stacklevel=2,
                 )
                 continue
-            for testcase in root.iter("testcase"):
-                node_id = _node_id(testcase)
-                if node_id is not None:
-                    outcome, signature = _result(testcase)
-                    rows.append(
-                        HistoryRow(
-                            run_id=metadata.run_id,
-                            attempt=metadata.attempt,
-                            job_key=job_key,
-                            env_key=env_key,
-                            head_sha=metadata.head_sha,
-                            node_id=node_id,
-                            outcome=outcome,
-                            signature=signature,
-                            source_url=metadata.artifact_url,
-                        )
+            for observation in observations:
+                rows.append(
+                    HistoryRow(
+                        run_id=metadata.run_id,
+                        attempt=metadata.attempt,
+                        job_key=job_key,
+                        env_key=env_key,
+                        head_sha=metadata.head_sha,
+                        node_id=observation.node_id,
+                        outcome=observation.outcome,
+                        signature=observation.signature,
+                        source_url=metadata.artifact_url,
                     )
+                )
 
     return list(dict.fromkeys(rows))
 

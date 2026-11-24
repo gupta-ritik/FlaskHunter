@@ -33,8 +33,8 @@
 
 **Description.** Take one synthetic benchmark flake from captured history through rules-only diagnosis to a report.
 
-- [ ] Replay the local trigger and passing control, classify the candidate with deterministic rules, and report the node ID, signature, cause, and replay evidence.
-- [ ] Run the full slice with local fixtures and without Docker, an LLM, or PRs.
+- [x] Replay the local trigger and passing control, classify the candidate with deterministic rules, and report the node ID, signature, cause, and replay evidence.
+- [x] Run the full slice with local fixtures and without Docker, an LLM, or PRs.
 
 ## Week 2 · Diagnosis
 

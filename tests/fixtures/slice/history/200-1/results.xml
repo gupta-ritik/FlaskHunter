@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.158"><testcase classname="tests.test_order" name="test_changes_state" time="0.001" /><testcase classname="tests.test_order" name="test_starts_clean" time="0.001"><failure message="AssertionError: shared state was changed&#10;assert not {'format': 'json'}">def test_starts_clean() -&gt; None:
+&gt;       assert not DEFAULT_OPTIONS, "shared state was changed"
+E       AssertionError: shared state was changed
+E       assert not {'format': 'json'}
+
+tests\test_order.py:10: AssertionError</failure></testcase></testsuite></testsuites>

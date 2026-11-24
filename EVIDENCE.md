@@ -21,6 +21,13 @@ freezegun, network → pytest-socket. It also suggested changing one factor per
 experiment, which became a design rule for FlakeHunter.
 **Verification:** Confirmed no files were changed (Explorer showed only LICENSE).
 **Evidence:** screenshots/01-understand-readonly.png
+**Environment check (W1-1, #3) · 2026-11-24:** Confirmed the sandbox prerequisites
+on the reference laptop: WSL 2.7.14 with `docker-desktop` running on WSL 2,
+Docker 29.7.2 with Linux containers (`OSType: linux`), and network isolation
+verified — `docker run --rm --network=none alpine ip route` printed no routes.
+Docker VM memory is 7.5 GB, so Ollama will run on the Windows host, not in Docker.
+**Evidence:** screenshots/07-docker-wsl-check.png
+
 
 ## 2. Plan
 **Date:** 2026-11-24
@@ -58,7 +65,7 @@ virtual-env and cache folders were git-ignored.
 **Evidence:** screenshots/02-skeleton-checks.png
 
 ### W1-2 · Ingest CI history and detect flaky candidates
-**Date:** 2026-11-24 · **Issue:** #4 · **PR:** #<PR number> · **Effort:** Medium
+**Date:** 2026-11-24 · **Issue:** #4 · **PR:** #18 · **Effort:** Medium
 **What I did:** Codex implemented local pytest JUnit ingestion,
 comparable-attempt grouping (same SHA + same environment), deduplication of
 repeated uploads, and the `flakehunter history` CLI. Work was test-first.
@@ -79,6 +86,18 @@ different environments and the stable failure were NOT flagged.
 **Evidence:** screenshots/06-w1-2-candidates.png ·
 [acceptance criteria](docs/issues.md#w1-2--ingest-comparable-github-actions-test-results--4) ·
 [history format](docs/history-format.md) · [fixture tests](tests/test_history.py)
+
+**W1-3 rules-only replay (2026-11-24).** The test-first run failed with a
+missing CLI command and two missing modules. Two locally captured pytest JUnit
+reports produced one candidate. The trigger reproduced
+`AssertionError: shared state was changed` in all five runs and the control
+passed all five. The report classified `order_dependence` with confidence
+0.80. Both stable demo tests passed, and the main suite collected 16 passing
+tests under `tests/`. Ruff and mypy passed.
+
+**Replay:** `flakehunter investigate --history tests/fixtures/slice/history --repo demo_repo`.
+**Evidence:** [captured JUnit history](tests/fixtures/slice/history),
+[demo tests](demo_repo/tests/test_order.py), and [integration test](tests/test_slice.py).
 
 ## 4. Test
 **CI:** First GitHub Actions run (CI #1) passed in 19s on main.
@@ -110,8 +129,8 @@ check `git status` before pushing.
 |---|---|---|---|
 | #2 | AGENTS.md + evidence | No major issues 👍 | Merged |
 | #16 | Plan, issues, ADRs | <result> | Merged |
-| #<n> | Link issues | <result> | Merged |
-| #<n> | W1-2 history ingestion (Fixes #4) | <result> | <action> |
+| #17 | Link issues | <result> | Merged |
+| #18 | W1-2 history ingestion (Fixes #4) | <result> | <action> |
 
 ## 6. Document
 **Date:** 2026-11-24
@@ -132,6 +151,8 @@ _To do: PyPI release, GitHub Action, setup instructions in README._
 _To do: nightly scheduled workflow running FlakeHunter on its own repo and the demo repo._
 
 ---
+
+
 
 ## Codex capabilities used (running list)
 - [x] Read-only exploration (Understand)
