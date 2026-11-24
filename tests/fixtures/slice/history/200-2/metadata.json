@@ -1,0 +1,13 @@
+{
+    "repo":  "example/flakehunter-demo",
+    "head_sha":  "9b3558bc51f81a7e8c00aa8302eb6523bd613892",
+    "workflow":  "synthetic ci",
+    "job":  "pytest",
+    "env":  {
+                "python":  "3.12.14",
+                "os":  "windows"
+            },
+    "run_id":  200,
+    "attempt":  2,
+    "artifact_url":  "https://example.test/runs/200/attempts/2"
+}
