@@ -86,3 +86,14 @@ _To do: nightly scheduled workflow running FlakeHunter on its own repo and the d
 showed main and branch identical because files weren't committed — learned to
 check `git status` before pushing.
 **Evidence:** screenshots/04-codex-review.png
+
+
+
+**Date:** 2026-11-24
+**What I did:** Codex drafted PLAN.md, issues.md and decisions.md (effort High).
+**My review:** The plan was rigorous but too heavy for a solo 4-week build.
+**My edits:** Split v1 vs v1.1 scope; added a week-1 vertical slice; added the
+Windows Docker/WSL2 risk; added real-world flaky-test reproduction target;
+added verified problem statistics; changed single model to a 2-model comparison;
+added a TL;DR for judges.
+**Evidence:** docs/PLAN.md, docs/issues.md, docs/decisions.md

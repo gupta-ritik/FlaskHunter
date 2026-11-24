@@ -1,0 +1,2 @@
+| 2026-11-24 | Plan | PLAN/issues/ADRs draft | GPT-6.2 Sol | High | Sets architecture and scope | Rigorous but over-scoped |
+| 2026-11-24 | Plan | Apply my review edits | GPT-6.2 Sol | Medium | Edits to an existing plan, no new design | <result> |
