@@ -72,8 +72,9 @@ one failing) with matching SHA and environment. After copying the failed report
 into the same attempt folder, the CLI still reported one pass and one fail for
 `test_probe.py::test_ci_probe` (deduplication works) and preserved its
 `AssertionError` signature.
-**My check:** Ran `flakehunter history tests/fixtures/history` myself:
-1 candidate and 1 missing-metadata warning. Confirmed the pass/fail pair on
+**My check:** Ran `flakehunter history tests/fixtures/history` myself: exactly
+1 candidate (`tests/test_sample.py::TestCases::test_flaky[case.a]`, 1 pass /
+1 fail, `AssertionError: value differs`). Confirmed the pass/fail pair on
 different environments and the stable failure were NOT flagged.
 **Evidence:** screenshots/06-w1-2-candidates.png ·
 [acceptance criteria](docs/issues.md#w1-2--ingest-comparable-github-actions-test-results--4) ·
@@ -84,6 +85,14 @@ different environments and the stable failure were NOT flagged.
 **Evidence:** screenshots/03-ci-green.png
 **Test-first practice:** W1-2 tests were written and shown failing before the
 implementation (see Build › W1-2).
+**Windows sandbox issue (2026-11-24):** A Codex run left three temp folders with
+mangled names (`Usersritik.guptaDesktopFlaskHunter.venvhistory-pytest-*`) in the
+repo root, owned by the sandbox user. pytest collection failed with
+"Access is denied" and my user could not delete them, even with `takeown`.
+Codex removed them. Prevented recurrence by restricting pytest to
+`testpaths = ["tests"]`, git-ignoring `/Users*/`, and adding an AGENTS.md rule
+(use `tmp_path`, never absolute Windows paths for `--basetemp`).
+Result: ruff clean, mypy clean, 8 passed.
 _To do: flaky demo repo + benchmark (benchmark/measure_flakiness.py results)._
 
 ## 5. Review
