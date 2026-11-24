@@ -1,0 +1,8 @@
+<testsuite name="pytest">
+  <testcase classname="tests.test_sample.TestCases" name="test_flaky[case.a]" />
+  <testcase classname="tests.test_sample" name="test_stable_failure">
+    <failure type="ValueError" message="always fails" />
+  </testcase>
+  <testcase classname="tests.test_sample" name="test_stable_pass" />
+  <testcase classname="tests.test_sample" name="test_setup" />
+</testsuite>

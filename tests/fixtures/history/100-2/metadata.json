@@ -1,0 +1,10 @@
+{
+  "repo": "example/project",
+  "head_sha": "abc123",
+  "workflow": "CI",
+  "job": "unit",
+  "env": {"os": "linux", "python": "3.12"},
+  "run_id": 100,
+  "attempt": 2,
+  "artifact_url": "https://example.test/runs/100/attempts/2"
+}

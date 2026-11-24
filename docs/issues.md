@@ -23,9 +23,9 @@
 
 **Description.** Normalize JUnit observations and identify flakes across distinct attempts of comparable jobs.
 
-- [ ] Preserve SHA, workflow/job, environment key, run/attempt, full pytest node ID, outcome, signature where available, and artifact URL.
-- [ ] A captured pass/fail pair on the same SHA and environment produces one candidate after deduplication.
-- [ ] Fixture tests cover duplicate uploads, missing artifacts, incompatible environments, and stable failures. Unit tests use local fixtures.
+- [x] Preserve SHA, workflow/job, environment key, run/attempt, full pytest node ID, outcome, signature where available, and artifact URL.
+- [x] A captured pass/fail pair on the same SHA and environment produces one candidate after deduplication.
+- [x] Fixture tests cover duplicate uploads, missing artifacts, incompatible environments, and stable failures. Unit tests use local fixtures.
 
 ### W1-3 · Report one benchmark flake end to end · [#5](https://github.com/gupta-ritik/FlaskHunter/issues/5)
 

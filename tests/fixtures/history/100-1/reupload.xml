@@ -1,0 +1,5 @@
+<testsuite name="pytest">
+  <testcase classname="tests.test_sample.TestCases" name="test_flaky[case.a]">
+    <failure message="value differs&#10;second line">tests/test_sample.py:8: AssertionError</failure>
+  </testcase>
+</testsuite>
