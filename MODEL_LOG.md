@@ -1,3 +1,5 @@
 | 2026-11-24 | Plan | PLAN/issues/ADRs draft | GPT-6.2 Sol | High | Sets architecture and scope | Rigorous but over-scoped |
 | 2026-11-24 | Plan | Apply my review edits | GPT-6.2 Sol | Medium | Edits to an existing plan, no new design | <result> |
 | 2026-11-24 | Plan | Create GitHub issues, labels, milestones (gh CLI) | GPT-6.2 Sol | Medium | Multi-step CLI work across many issues; must avoid duplicates and wrong labels | 12 issues created (#4–#15), no duplicates; issues.md linked |
+| 2026-11-24 | Build | W1-2 local CI history and flaky candidates (#4) | GPT-6 (Codex) | Unavailable | Local parsing, attempt deduplication, and CLI reporting with fixture tests | Test-first failure reproduced. Verified with Ruff, mypy, pytest, and the fixture CLI run. See [history format](docs/history-format.md) and [tests](tests/test_history.py). |
+| 2026-11-24 | Build | W1-2 history ingestion + candidate detection (#4) | GPT-6.2 Sol | Medium | Cross-file parsing + detection logic, test-first | Tests failed first (missing module), then 8 passed; ruff + mypy clean |
